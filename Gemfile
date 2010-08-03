@@ -40,7 +40,7 @@ group :test, :cucumber do
   gem 'faker'
   gem 'email_spec'
   gem 'autotest-rails'
-#  gem 'autotest-growl'
+  gem 'autotest-growl'
   gem 'daemons'
   gem 'spork'
   gem 'cucumber-rails'

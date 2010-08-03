@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'rubygems'
 require 'spork'
 # --- Instructions ---
@@ -10,22 +11,23 @@ require 'spork'
 # - These instructions should self-destruct in 10 seconds.  If they don't,
 #   feel free to delete them.
 #
-Spork.prefork do
+#Spork.prefork do
   # Loading more in this block will cause your specs to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
   require 'spec/autorun'
   require 'spec/rails'
-  require 'email_spec'
-  require 'database_cleaner'
 
   # Uncomment the next line to use webrat's matchers
   #require 'webrat/integrations/rspec-rails'
 
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
-  Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
+  Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].
+    delete_if {|dirname| dirname =~ /blueprints(?:\/|\.rb)/}.each {|f| require f}
+  # machinistのデータは毎回読み直したいのでここでは飛ばしている
+
 
   Spec::Runner.configure do |config|
     # If you're not using ActiveRecord you should remove these
@@ -34,9 +36,6 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     config.use_instantiated_fixtures  = false
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-    config.include EmailSpec::Helpers
-    config.include EmailSpec::Matchers
-    config.include WardenHelperMethods
 
     # == Fixtures
     #
@@ -69,6 +68,8 @@ Spork.prefork do
     # == Notes
     #
     # For more information take a look at Spec::Runner::Configuration and Spec::Runner
+    config.include WardenHelperMethods
+
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation, { :except => %w[ruby_kaigis] }
       DatabaseCleaner.clean_with(:truncation)
@@ -93,9 +94,11 @@ Spork.prefork do
       DatabaseCleaner.clean
     end
   end
-end
+#end
 
-Spork.each_run do
+#Spork.each_run do
   # This code will be run each time you run your specs.
-
-end
+  support_base_dir = File.expand_path(File.join(File.dirname(__FILE__),'support'))
+  require File.join(support_base_dir, 'blueprints.rb')
+  Dir[File.join(support_base_dir, 'blueprints', '**','*.rb')].each {|f| require f}
+#end

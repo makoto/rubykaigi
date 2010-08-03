@@ -11,6 +11,7 @@ db/development_structure.sql
 db/backup/*.sqlite3
 db/development_structure.sql
 log/*.log
+log/*.log.*
 backup/*.*
 coverage.aggregate
 coverage

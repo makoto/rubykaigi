@@ -1,18 +1,18 @@
 --- 
 dependencies: 
-  fastercsv: 
+  faker: 
     group: 
-    - :default
+    - :test
+    - :cucumber
     version: ">= 0"
   rr: 
     group: 
     - :test
     - :cucumber
     version: ">= 0"
-  faker: 
+  fastercsv: 
     group: 
-    - :test
-    - :cucumber
+    - :default
     version: ">= 0"
   spork: 
     group: 
@@ -25,7 +25,11 @@ dependencies:
     version: = 2.3.8
     require: []
 
-  haml: 
+  SystemTimer: 
+    group: 
+    - :default
+    version: ">= 0"
+  mysql: 
     group: 
     - :default
     version: ">= 0"
@@ -35,11 +39,15 @@ dependencies:
     version: ">= 0"
     require: 
     - smtp-tls
-  mysql: 
+  haml: 
     group: 
     - :default
     version: ">= 0"
-  SystemTimer: 
+  rails_warden: 
+    group: 
+    - :default
+    version: ">= 0"
+  i18n_generators: 
     group: 
     - :default
     version: ">= 0"
@@ -50,29 +58,21 @@ dependencies:
     version: ">= 0"
     require: 
     - machinist/active_record
-  i18n_generators: 
+  delayed_job: 
     group: 
     - :default
     version: ">= 0"
-  rails_warden: 
+  whenever: 
     group: 
     - :default
-    version: ">= 0"
+    version: = 0.4.2
   redis-objects: 
     group: 
     - :default
     version: ">= 0"
     require: 
     - redis/objects
-  whenever: 
-    group: 
-    - :default
-    version: = 0.4.2
-  delayed_job: 
-    group: 
-    - :default
-    version: ">= 0"
-  rspec-rails: 
+  autotest-growl: 
     group: 
     - :test
     - :cucumber
@@ -80,6 +80,11 @@ dependencies:
   thin: 
     group: 
     - :development
+    version: ">= 0"
+  rspec-rails: 
+    group: 
+    - :test
+    - :cucumber
     version: ">= 0"
   database_cleaner: 
     group: 
@@ -91,17 +96,7 @@ dependencies:
     - :test
     - :cucumber
     version: ">= 0"
-  capistrano-ext: 
-    group: 
-    - :development
-    version: ">= 0"
-    require: []
-
-  god: 
-    group: 
-    - :default
-    version: ">= 0"
-  configatron: 
+  warden-openid: 
     group: 
     - :default
     version: ">= 0"
@@ -109,10 +104,20 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  warden-openid: 
+  configatron: 
     group: 
     - :default
     version: ">= 0"
+  god: 
+    group: 
+    - :default
+    version: ">= 0"
+  capistrano-ext: 
+    group: 
+    - :development
+    version: ">= 0"
+    require: []
+
   webrat: 
     group: 
     - :test
@@ -139,18 +144,14 @@ dependencies:
     - :test
     - :cucumber
     version: ">= 0"
-  email_spec: 
-    group: 
-    - :test
-    - :cucumber
-    version: ">= 0"
   hoptoad_notifier: 
     group: 
     - :default
     version: ">= 0"
-  warden_oauth: 
+  email_spec: 
     group: 
-    - :default
+    - :test
+    - :cucumber
     version: ">= 0"
   capistrano-notification: 
     group: 
@@ -158,6 +159,10 @@ dependencies:
     version: = 0.0.2
     require: []
 
+  warden_oauth: 
+    group: 
+    - :default
+    version: ">= 0"
   capybara: 
     group: 
     - :test
@@ -168,24 +173,24 @@ dependencies:
     - :test
     - :cucumber
     version: ">= 0"
-  twitter: 
+  autotest-rails: 
     group: 
-    - :default
+    - :test
+    - :cucumber
     version: ">= 0"
-  rack-google-analytics: 
-    group: 
-    - :default
-    version: = 0.6.1
   capistrano: 
     group: 
     - :development
     version: ">= 0"
     require: []
 
-  autotest-rails: 
+  rack-google-analytics: 
     group: 
-    - :test
-    - :cucumber
+    - :default
+    version: = 0.6.1
+  twitter: 
+    group: 
+    - :default
     version: ">= 0"
 specs: 
 - rake: 
@@ -210,6 +215,10 @@ specs:
     version: 2.1.2
 - ambethia-smtp-tls: 
     version: 1.1.2
+- autotest: 
+    version: 4.3.2
+- autotest-growl: 
+    version: 0.2.4
 - autotest-rails: 
     version: 4.1.0
 - builder: 
@@ -239,7 +248,7 @@ specs:
 - mime-types: 
     version: "1.16"
 - nokogiri: 
-    version: 1.4.2
+    version: 1.4.3.1
 - rack-test: 
     version: 0.5.4
 - ffi: 
@@ -283,7 +292,7 @@ specs:
 - delayed_job: 
     version: 2.0.3
 - email_spec: 
-    version: 0.6.2
+    version: 1.0.0
 - eventmachine: 
     version: 0.12.10
 - faker: 
@@ -295,9 +304,9 @@ specs:
 - god: 
     version: 0.11.0
 - haml: 
-    version: 3.0.14
+    version: 3.0.15
 - hashie: 
-    version: 0.2.1
+    version: 0.2.2
 - hoptoad_notifier: 
     version: 2.3.2
 - httparty: 
@@ -326,7 +335,7 @@ specs:
 - rails_warden: 
     version: 0.5.2
 - redis: 
-    version: 2.0.4
+    version: 2.0.5
 - redis-objects: 
     version: 0.3.2
 - rr: 
@@ -355,7 +364,7 @@ specs:
     version: 0.4.2
 - will_paginate: 
     version: 2.3.14
-hash: 5c8f559eb52922818da419f9d195a88ca7795f5b
+hash: 724607fd06cfb26cd03304c28c8e4b6180a59d39
 sources: 
 - Git: 
     uri: git://github.com/amatsuda/i18n_generators.git
