@@ -618,3 +618,26 @@ a
   color: #490d0a
 .timetable *
   letter-spacing: 0px
+
+.presence
+  position: relative
+
+.presence > li
+  cursor: pointer
+  
+.presence ul#member_list
+  position: absolute
+  top: 18px
+  left: 20px
+  z-index: 20
+  display: none
+  width: 120px
+  
+.presence ul#member_list li
+  display: block
+  list-style-type: none
+  padding-left: 0
+  background-image: none
+  
+.presence ul#member_list li a
+  padding: 3px

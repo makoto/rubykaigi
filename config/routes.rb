@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.root :controller => 'welcome'
-
+  map.pusher("/pusher/auth", :controller => 'pusher', :action => 'auth')
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

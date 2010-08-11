@@ -13,8 +13,48 @@
     %script{ :src => "/2010/javascripts/jquery-1.4.2.min.js", :type => "text/javascript" }
     %script{ :src => "/2010/javascripts/hoverIntent.js", :type => "text/javascript" }
     %script{ :src => "/2010/javascripts/superfish.js", :type => "text/javascript" }
+    %script{ :src => "http://js.pusherapp.com/1.6/pusher.min.js", :type => "text/javascript" }
     :javascript
+
+      var server;
       jQuery(function(){
+        Pusher.log = function() {
+          if (window.console) window.console.log.apply(window.console, arguments);
+        };
+        var peeps;
+        function updatePresence(members){
+          Pusher.log('Updating Presence with' + members);
+          jQuery('li.presence .presence_counter').text(members.length);
+          var list = '';
+          jQuery.each(members, function(i,member){
+            list += '<li><a href="/rubyists/'+member.user_info.name+'">'+member.user_info.name+'</a></li>';
+          });
+          jQuery('#member_list').html(list);
+        }
+        server = new Pusher('#{Pusher.key}');
+        var myPresenceChannel = server.subscribe('presence#{pusher_presense_channel}')
+        myPresenceChannel.bind('member_added', function(member){
+          Pusher.log('A member was added: '+ member);
+          updatePresence(myPresenceChannel.members());
+        })
+
+        myPresenceChannel.bind('subscription_succeeded', function(member_list){
+          Pusher.log('Get initial members: '+ member_list);
+          updatePresence(member_list);
+        })
+        myPresenceChannel.bind('member_removed', function(member){
+          Pusher.log('A member was removed: '+ member);
+          updatePresence(myPresenceChannel.members());
+        })
+        
+        server.bind('pusher:connection_disconnected', function(){
+          updatePresence(myPresenceChannel.members());
+        })
+        
+        jQuery('li.presence').click(function(){
+          jQuery(this).find('#member_list').toggle('fast');
+        });
+        
         jQuery('ul.sf-menu').superfish();
       });
     != yield :head
@@ -31,6 +71,10 @@
               %li!= link_to 'Dashboard', dashboard_path
               %li!= link_to 'Account Settings', edit_account_path
               %li!= link_to 'Sign Out', sessions_path, :method => :delete
+              %li.presence
+                %span.presence_counter
+                people watching
+                %ul#member_list
           %img.icon{ :alt => "Avator", :title => "Avator Icon Setting Feature is coming soon :<", :src => '/images/bow_face.png', :height => 30 }
       - else
         != link_to(image_tag("/2010/images/signin_btn.png", :alt => 'Sign In', :class => 'f_right'), signin_path)

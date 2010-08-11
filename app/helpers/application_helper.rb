@@ -43,4 +43,8 @@ module ApplicationHelper
   def noindex_nofollow
     '<meta name="robots" content="noindex,nofollow" />'
   end
+  
+  def pusher_presense_channel
+    request.path.gsub(/\//,'-')    
+  end
 end
