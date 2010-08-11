@@ -20,6 +20,7 @@ gem 'SystemTimer'
 gem 'twitter'
 
 gem 'rails_warden'
+gem 'pusher'
 gem 'warden_oauth'
 gem 'warden-openid'
 
