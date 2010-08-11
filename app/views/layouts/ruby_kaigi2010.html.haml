@@ -33,16 +33,16 @@
         }
         server = new Pusher('#{Pusher.key}');
         var myPresenceChannel = server.subscribe('presence#{pusher_presense_channel}')
-        myPresenceChannel.bind('member_added', function(member){
+        myPresenceChannel.bind('pusher:member_added', function(member){
           Pusher.log('A member was added: '+ member);
           updatePresence(myPresenceChannel.members());
         })
 
-        myPresenceChannel.bind('subscription_succeeded', function(member_list){
+        myPresenceChannel.bind('pusher:subscription_succeeded', function(member_list){
           Pusher.log('Get initial members: '+ member_list);
           updatePresence(member_list);
         })
-        myPresenceChannel.bind('member_removed', function(member){
+        myPresenceChannel.bind('pusher:member_removed', function(member){
           Pusher.log('A member was removed: '+ member);
           updatePresence(myPresenceChannel.members());
         })
